@@ -9,14 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".SkinInfoActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/priceView"
-        android:layout_alignParentTop="true"
+        android:id="@+id/listViewWears"
+        android:headerDividersEnabled="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="10sp" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

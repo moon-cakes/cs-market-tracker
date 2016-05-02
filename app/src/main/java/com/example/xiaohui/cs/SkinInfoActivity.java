@@ -2,8 +2,8 @@ package com.example.xiaohui.cs;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -14,8 +14,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.RequestFuture;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -25,9 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public class SkinInfoActivity extends AppCompatActivity {
 
@@ -49,8 +44,6 @@ public class SkinInfoActivity extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
 
-        priceView = (TextView) findViewById(R.id.priceView);
-
         //receive intent to match next screen view
         Intent i = getIntent();
         String skin = i.getStringExtra("skin");
@@ -61,7 +54,9 @@ public class SkinInfoActivity extends AppCompatActivity {
         listOfWears.add(getResources().getString(R.string.factory_new));
         listOfWears.add(getResources().getString(R.string.minimal_wear));
         listOfWears.add(getResources().getString(R.string.field_tested));
+        listOfWears.add(getResources().getString(R.string.well_worn));
         listOfWears.add(getResources().getString(R.string.battle_scarred));
+
 
         //listWearsAndPrices contains the list of all wears and their lowest prices
         final List<Map<String, String>> listWearsAndPrices = new ArrayList<Map<String, String>>();
@@ -106,7 +101,13 @@ public class SkinInfoActivity extends AppCompatActivity {
                                 try {
                                    int indexOfWear = listOfWears.indexOf(wear);
                                     Map<String, String> itemInList = listWearsAndPrices.get(indexOfWear);
-                                    itemInList.put("Price", response.getString("lowest_price"));
+                                    if (response.getBoolean("success")) {
+                                        itemInList.put("Price", response.getString("lowest_price"));
+                                    } else {
+                                        // If price is not possible
+                                        itemInList.put("Price", "Item Unavailable");
+                                        Log.e("tag", "Item unavailable unreached");
+                                    }
                                     // Update view
                                     adapter.notifyDataSetChanged();
                                 } catch (JSONException e) {
@@ -122,7 +123,10 @@ public class SkinInfoActivity extends AppCompatActivity {
                          * TODO
                          * CHECK FOR INTERNET CONNECTION
                          */
-                        priceView.setText("That didn't work!");
+                        int indexOfWear = listOfWears.indexOf(wear);
+                        Map<String, String> itemInList = listWearsAndPrices.get(indexOfWear);
+                        itemInList.put("Price", "Item Unavailable");
+                        adapter.notifyDataSetChanged();
                     }
                 });
                 // Add the request to the RequestQueue.

@@ -6,4 +6,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="factory_new">Factory New</string>
+    <string name="field_tested">Field-Tested</string>
+    <string name="minimal_wear">Minimal Wear</string>
+    <string name="battle_scarred">Battle-Scarred</string>
+
+    <string name="well_worn">Well-Worn</string>
 </resources>

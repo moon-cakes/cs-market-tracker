@@ -20,10 +20,6 @@
         <activity android:name=".WeaponActivity" />
         <activity android:name=".SkinActivity" />
         <activity android:name=".SkinInfoActivity" />
-        <activity
-            android:name=".TestActivity"
-            android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
