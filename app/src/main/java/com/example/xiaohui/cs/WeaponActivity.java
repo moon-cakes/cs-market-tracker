@@ -33,7 +33,7 @@ public class WeaponActivity extends AppCompatActivity {
         databaseAccess.open();
 
 
-        List<String> quotes = databaseAccess.getQuotes("SELECT weapon_name FROM weapon WHERE type='" + type + "'");
+        List<String> quotes = databaseAccess.getGunsByType(type);
         databaseAccess.close();
         itemType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

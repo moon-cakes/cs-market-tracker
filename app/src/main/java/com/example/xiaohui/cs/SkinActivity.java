@@ -38,7 +38,7 @@ public class SkinActivity extends AppCompatActivity {
         databaseAccess.open();
 
 
-        List<String> quotes = databaseAccess.getQuotes("SELECT skin_name FROM skin WHERE weapon_name='" + weaponName + "'");
+        List<String> quotes = databaseAccess.getSkinsByGun(weaponName);
         databaseAccess.close();
 
         itemType.setOnItemClickListener(new AdapterView.OnItemClickListener(){

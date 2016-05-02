@@ -51,6 +51,33 @@ public class DatabaseAccess {
         }
     }
 
+    private List<String> performQuery(String query){
+        List<String> list = new ArrayList<>();
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<String> getTypes(){
+        String query = "SELECT DISTINCT type FROM weapon";
+        return performQuery(query);
+    }
+
+    public List<String> getGunsByType(String type){
+        String query = "SELECT weapon_name FROM weapon WHERE type='" + type + "';";
+        return performQuery(query);
+    }
+
+    public List<String> getSkinsByGun(String gun){
+        String query = "SELECT skin_name FROM skin WHERE weapon_name='" + gun + "';";
+        return performQuery(query);
+    }
+
     /**
      * Read all quotes from the database.
      *
