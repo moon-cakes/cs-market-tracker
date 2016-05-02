@@ -20,6 +20,7 @@
         <!-- Childs of the main activity -->
         <activity
             android:name=".WeaponActivity"
+            android:launchMode="singleTop"
             android:parentActivityName="com.example.xiaohui.cs.MainActivity" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -29,6 +30,7 @@
 
         <activity
             android:name=".SkinActivity"
+            android:launchMode="singleTop"
             android:parentActivityName="com.example.xiaohui.cs.WeaponActivity" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data

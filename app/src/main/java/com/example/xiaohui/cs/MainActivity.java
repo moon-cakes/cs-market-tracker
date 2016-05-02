@@ -33,24 +33,24 @@ public class MainActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-
         this.categoryList = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-        List<String> quotes = databaseAccess.getQuotes("SELECT DISTINCT type FROM weapon");
+        List<String> quotes = databaseAccess.getTypes();
         databaseAccess.close();
+
         categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = ((TextView)view).getText().toString();
-                    Intent i = new Intent(getApplicationContext(), WeaponActivity.class);
-                    i.putExtra("com.example.xiaohui.cs", item);
-                    startActivity(i);
+                Intent i = new Intent(getApplicationContext(), WeaponActivity.class);
+                i.putExtra("com.example.xiaohui.cs", item);
+                startActivity(i);
             }
         });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
                 quotes);
-        this. categoryList.setAdapter(adapter);
+        categoryList.setAdapter(adapter);
     }
 }
