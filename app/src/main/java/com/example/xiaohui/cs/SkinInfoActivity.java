@@ -10,10 +10,17 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -29,7 +36,6 @@ import java.util.Map;
 public class SkinInfoActivity extends AppCompatActivity {
 
     ListView itemType;
-    private TextView priceView;
     private ListView listViewWearsAndPrice;
     private List<String> listOfWears;
     Map<String, String> wearPrice;
@@ -123,14 +129,30 @@ public class SkinInfoActivity extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        /**
-                         * TODO
-                         * CHECK FOR INTERNET CONNECTION
-                         */
+
                         int indexOfWear = listOfWears.indexOf(wear);
                         Map<String, String> itemInList = listWearsAndPrices.get(indexOfWear);
-                        itemInList.put("Price", "Item Unavailable");
-                        adapter.notifyDataSetChanged();
+
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            Log.e("TimeoutError", "Timeout Error");
+                            itemInList.put("Price", "No internet connection.");
+                            adapter.notifyDataSetChanged();
+                        } else if (error instanceof AuthFailureError) {
+                            itemInList.put("Price", "AuthFailureError");
+                            adapter.notifyDataSetChanged();
+                        } else if (error instanceof ServerError) {
+                            itemInList.put("Price", "Error with server. Please try again later.");
+                            adapter.notifyDataSetChanged();
+                        } else if (error instanceof NetworkError) {
+                            itemInList.put("Price", "Network error");
+                            adapter.notifyDataSetChanged();
+                        } else if (error instanceof ParseError) {
+                            //TODO
+                        } else {
+                            itemInList.put("Price", "Item Unavailable");
+                            adapter.notifyDataSetChanged();
+                        }
+
                     }
                 });
                 // Add the request to the RequestQueue.
