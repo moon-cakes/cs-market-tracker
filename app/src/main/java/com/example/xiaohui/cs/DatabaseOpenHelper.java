@@ -12,19 +12,6 @@ public class DatabaseOpenHelper extends SQLiteAssetHelper {
 
     private static DatabaseOpenHelper sInstance;
 
-/*
-    public static synchronized DatabaseOpenHelper getInstance(Context context) {
-
-        // Use the application context, which will ensure that you
-        // don't accidentally leak an Activity's context.
-        // See this article for more information: http://bit.ly/6LRzfx
-        if (sInstance == null) {
-            sInstance = new DatabaseOpenHelper(context.getApplicationContext());
-        }
-        return sInstance;
-    }
-*/
-
 
     /*
     To facilitate a database upgrade, increment the version number that you pass to your SQLiteAssetHelper constructor:

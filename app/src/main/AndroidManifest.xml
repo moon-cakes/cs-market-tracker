@@ -13,13 +13,40 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WeaponActivity" />
-        <activity android:name=".SkinActivity" />
-        <activity android:name=".SkinInfoActivity" />
+
+        <!-- Childs of the main activity -->
+        <activity
+            android:name=".WeaponActivity"
+            android:parentActivityName="com.example.xiaohui.cs.MainActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.xiaohui.cs.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".SkinActivity"
+            android:parentActivityName="com.example.xiaohui.cs.WeaponActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.xiaohui.cs.WeaponActivity" />
+        </activity>
+
+        <activity
+            android:name=".SkinInfoActivity"
+            android:parentActivityName="com.example.xiaohui.cs.SkinActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.xiaohui.cs.SkinActivity" />
+        </activity>
+
+
+
     </application>
 
 </manifest>

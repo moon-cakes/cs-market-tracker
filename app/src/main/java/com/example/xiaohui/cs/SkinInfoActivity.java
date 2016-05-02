@@ -3,8 +3,10 @@ package com.example.xiaohui.cs;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -39,15 +41,17 @@ public class SkinInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skininfo);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //receive intent to match next screen view
+        //Intent i = getIntent();
+        String skin = getIntent().getStringExtra("skin");
+        String weapon = getIntent().getStringExtra("weaponName");
+        setTitle(skin + " - (" + weapon + ")");
 
         this.itemType = (ListView) findViewById(R.id.listViewWears);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-
-        //receive intent to match next screen view
-        Intent i = getIntent();
-        String skin = i.getStringExtra("skin");
-        String weapon = i.getStringExtra("weaponName");
 
         //add the different types of list of wears
         listOfWears = new ArrayList<String>();
@@ -157,6 +161,18 @@ public class SkinInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

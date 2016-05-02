@@ -1,8 +1,13 @@
 package com.example.xiaohui.cs;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,14 +26,17 @@ public class SkinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skin);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        //receive intent message from previous screen to match weaponName clicked for sql retrieval
+        final String weaponName = getIntent().getStringExtra("com.example.xiaohui.cs");
+        setTitle(weaponName);
 
         this.itemType = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
 
-        //receive intent to match next screen view
-        Intent i = getIntent();
-        final String weaponName = i.getStringExtra("com.example.xiaohui.cs");
 
         List<String> quotes = databaseAccess.getQuotes("SELECT skin_name FROM skin WHERE weapon_name='" + weaponName + "'");
         databaseAccess.close();
@@ -48,4 +56,21 @@ public class SkinActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
         this.itemType.setAdapter(adapter);
     }
+
+
+   /* @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                Intent parentActivityIntent = new Intent(this, WeaponActivity.class);
+                parentActivityIntent.addFlags(
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(parentActivityIntent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }*/
 }

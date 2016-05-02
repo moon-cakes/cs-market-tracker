@@ -2,7 +2,9 @@ package com.example.xiaohui.cs;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,16 +22,18 @@ public class WeaponActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weapon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //receive intent to get the message about category/type of item chosen
+        String type = getIntent().getStringExtra("com.example.xiaohui.cs");
+        setTitle(type);
 
         this.itemType = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
 
-        //receive intent to match next screen view
-        Intent i = getIntent();
-        String message = i.getStringExtra("com.example.xiaohui.cs");
 
-        List<String> quotes = databaseAccess.getQuotes("SELECT weapon_name FROM weapon WHERE type='" + message + "'");
+        List<String> quotes = databaseAccess.getQuotes("SELECT weapon_name FROM weapon WHERE type='" + type + "'");
         databaseAccess.close();
         itemType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -46,4 +50,16 @@ public class WeaponActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
         this.itemType.setAdapter(adapter);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+        }
+        return true;
+    }
+
 }
