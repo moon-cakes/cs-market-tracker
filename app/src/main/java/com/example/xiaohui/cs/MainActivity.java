@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         drawerList.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, drawItems));
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeButtonEnabled(true);
 
         this.categoryList = (ListView) findViewById(R.id.listView);
