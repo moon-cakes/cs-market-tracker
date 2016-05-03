@@ -112,9 +112,6 @@ public class SkinInfoActivity extends AppCompatActivity {
                                    int indexOfWear = listOfWears.indexOf(wear);
                                     Map<String, String> itemInList = listWearsAndPrices.get(indexOfWear);
                                         itemInList.put("Price", response.getString("lowest_price"));
-                                        // If price is not possible
-                                        itemInList.put("Price", "Item Unavailable");
-                                        Log.e("tag", "Item unavailable unreached");
                                     adapter.notifyDataSetChanged();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
