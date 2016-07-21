@@ -19,39 +19,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Childs of the main activity -->
-        <activity
-            android:name=".WeaponActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.example.xiaohui.cs.MainActivity" >
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.xiaohui.cs.MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".SkinActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.example.xiaohui.cs.WeaponActivity" >
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.xiaohui.cs.WeaponActivity" />
-        </activity>
-
-        <activity
-            android:name=".SkinInfoActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.example.xiaohui.cs.SkinActivity" >
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.xiaohui.cs.SkinActivity" />
-        </activity>
-
-
-
     </application>
 
 </manifest>
